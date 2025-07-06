@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi xatspace</title>
+    <script src="https://xatframe.github.io/xatframe/xatframe.js"></script>
+    <style>
+        body {
+            background: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .glitch-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmJtOG9vc3dwdmNuMXpsaTVlMGljemI3ZnhxdW5kdWlmcTRicDV1eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SnVZO1N0Wo6u4/giphy.gif') center center;
+            background-size: cover;
+            z-index: -2;
+            animation: cyberGlitch 6s infinite;
+        }
+        
+        .glitch-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            background-size: cover;
+            z-index: -1;
+            animation: glitchLayer1 4s infinite;
+        }
+        
+        .glitch-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            background-size: cover;
+            z-index: -1;
+            animation: glitchLayer2 3.5s infinite;
+        }
+        
+        @keyframes cyberGlitch {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                filter: hue-rotate(0deg) saturate(1) brightness(1);
+            }
+            5% {
+                transform: translate(5px, -2px) scale(1.02);
+                filter: hue-rotate(15deg) saturate(1.3) brightness(1.1);
+            }
+            6% {
+                transform: translate(-3px, 1px) scale(0.98);
+                filter: hue-rotate(-10deg) saturate(0.7) brightness(0.9);
+            }
+            7% {
+                transform: translate(0, 0) scale(1);
+                filter: hue-rotate(0deg) saturate(1) brightness(1);
+            }
+            25% {
+                transform: translate(-4px, 3px) scale(1.01);
+                filter: hue-rotate(-20deg) saturate(0.8) brightness(0.85);
+            }
+            26% {
+                transform: translate(2px, -1px) scale(1.03);
+                filter: hue-rotate(25deg) saturate(1.4) brightness(1.15);
+            }
+            27% {
+                transform: translate(0, 0) scale(1);
+                filter: hue-rotate(0deg) saturate(1) brightness(1);
+            }
+            50% {
+                transform: translate(3px, -3px) scale(0.99);
+                filter: hue-rotate(30deg) saturate(1.2) brightness(1.05);
+            }
+            51% {
+                transform: translate(-5px, 2px) scale(1.02);
+                filter: hue-rotate(-15deg) saturate(0.6) brightness(0.8);
+            }
+            52% {
+                transform: translate(0, 0) scale(1);
+                filter: hue-rotate(0deg) saturate(1) brightness(1);
+            }
+            75% {
+                transform: translate(-2px, -4px) scale(1.01);
+                filter: hue-rotate(-25deg) saturate(0.9) brightness(0.9);
+            }
+            76% {
+                transform: translate(4px, 1px) scale(0.97);
+                filter: hue-rotate(20deg) saturate(1.5) brightness(1.2);
+            }
+            77% {
+                transform: translate(0, 0) scale(1);
+                filter: hue-rotate(0deg) saturate(1) brightness(1);
+            }
+        }
+        
+        @keyframes glitchLayer1 {
+            0%, 100% { opacity: 0; }
+            10% { 
+                opacity: 0.3;
+                transform: translate(10px, 0) skew(-2deg);
+                filter: hue-rotate(45deg) brightness(1.3);
+            }
+            12% { opacity: 0; }
+            40% { 
+                opacity: 0.4;
+                transform: translate(-8px, 0) skew(3deg);
+                filter: hue-rotate(-30deg) brightness(0.7);
+            }
+            42% { opacity: 0; }
+            70% { 
+                opacity: 0.2;
+                transform: translate(6px, 0) skew(-1deg);
+                filter: hue-rotate(60deg) brightness(1.1);
+            }
+            72% { opacity: 0; }
+        }
+        
+        @keyframes glitchLayer2 {
+            0%, 100% { opacity: 0; }
+            15% { 
+                opacity: 0.25;
+                transform: translate(-12px, 0) skew(4deg);
+                filter: hue-rotate(-40deg) brightness(0.8);
+            }
+            17% { opacity: 0; }
+            45% { 
+                opacity: 0.35;
+                transform: translate(9px, 0) skew(-3deg);
+                filter: hue-rotate(35deg) brightness(1.2);
+            }
+            47% { opacity: 0; }
+            80% { 
+                opacity: 0.3;
+                transform: translate(-7px, 0) skew(2deg);
+                filter: hue-rotate(-50deg) brightness(0.9);
+            }
+            82% { opacity: 0; }
+        }
+        #fondo {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .perfil {
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        #playMsg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.8);
+            z-index: 10;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.8s;
+            pointer-events: auto;
+        }
+        .status {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ccc;
+        }
+        .error {
+            color: #ff6b6b;
+            margin-top: 10px;
+        }
+        .open-text {
+            font-size: 5em;
+            color: #fff;
+            font-family: 'UnifrakturCook', 'UnifrakturMaguntia', serif;
+            letter-spacing: 0.1em;
+            user-select: none;
+            text-shadow: 0 2px 24px #00f6, 0 0 32px #fff, 0 0 8px #fff, 0 0 2px #aaf;
+            opacity: 0.8;
+            filter: blur(1.2px);
+            --glow-x: 50%;
+            --glow-strength: 0.0;
+            background: linear-gradient(90deg, #aaf2 0%, #fff 30%, #fff 70%, #aaf2 100%), radial-gradient(circle at var(--glow-x,50%) 50%, rgba(255,255,255,calc(var(--glow-strength,0.0))) 0%, rgba(180,200,255,0.25) 30%, transparent 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #fff 50%, #fff 80%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #fff 20%, #fff 80%, transparent 100%);
+            -webkit-mask-size: 200% 100%;
+            mask-size: 200% 100%;
+            -webkit-mask-position: 0% 0%;
+            mask-position: 0% 0%;
+            animation: reveal-ghost 2.2s cubic-bezier(.77,0,.18,1) 0.2s forwards, pulseOpen 2.5s infinite cubic-bezier(.66,0,.34,1);
+            transition: --glow-x 0.2s, --glow-strength 0.2s, filter 0.2s;
+        }
+        @keyframes reveal-ghost {
+            0% {
+                opacity: 0.1;
+                filter: blur(8px);
+                -webkit-mask-position: 0% 0%;
+                mask-position: 0% 0%;
+            }
+            60% {
+                opacity: 0.8;
+                filter: blur(2.5px);
+            }
+            80% {
+                opacity: 1;
+                filter: blur(1.2px);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0.5px);
+                -webkit-mask-position: 100% 0%;
+                mask-position: 100% 0%;
+            }
+        }
+        @keyframes pulseOpen {
+            0% { transform: scale(1); filter: blur(1.2px); }
+            40% { transform: scale(1.04); filter: blur(0.7px); }
+            50% { transform: scale(1.08); filter: blur(0.2px); }
+            60% { transform: scale(1.04); filter: blur(0.7px); }
+            100% { transform: scale(1); filter: blur(1.2px); }
+        }
+        .ghost-text {
+            display: inline-block;
+            opacity: 0.5;
+            filter: blur(3px);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #fff 20%, #fff 80%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #fff 20%, #fff 80%, transparent 100%);
+            -webkit-mask-size: 200% 100%;
+            mask-size: 200% 100%;
+            -webkit-mask-position: 0% 0%;
+            mask-position: 0% 0%;
+            animation: reveal-ghost-2 3.5s cubic-bezier(.77,0,.18,1) 0.8s forwards;
+        }
+        .ghost-text-slow {
+            animation-duration: 5s;
+            filter: blur(5px);
+            opacity: 0.35;
+        }
+        @keyframes reveal-ghost-2 {
+            0% {
+                opacity: 0.05;
+                filter: blur(16px);
+                -webkit-mask-position: 0% 0%;
+                mask-position: 0% 0%;
+            }
+            60% {
+                opacity: 0.7;
+                filter: blur(4px);
+            }
+            80% {
+                opacity: 0.9;
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0.7px);
+                -webkit-mask-position: 100% 0%;
+                mask-position: 100% 0%;
+            }
+        }
+        .corner-title {
+            position: fixed;
+            top: 18px;
+            left: 32px;
+            margin: 0;
+            font-size: 2.2em;
+            color: #fff;
+            font-family: 'UnifrakturCook', 'UnifrakturMaguntia', serif;
+            letter-spacing: 0.05em;
+            z-index: 10;
+            opacity: 0.8;
+            text-shadow: 0 2px 16px #000, 0 0 8px #fff2;
+            animation: reveal-ghost 2.2s cubic-bezier(.77,0,.18,1) 0.2s forwards;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #fff 20%, #fff 80%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #fff 20%, #fff 80%, transparent 100%);
+            -webkit-mask-size: 200% 100%;
+            mask-size: 200% 100%;
+            -webkit-mask-position: 0% 0%;
+            mask-position: 0% 0%;
+        }
+        .center-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            max-width: 900px;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .center-message .open-text {
+            font-size: 2em;
+            font-family: 'UnifrakturCook', 'UnifrakturMaguntia', serif;
+            color: #fff;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+            text-shadow: 0 2px 16px #000, 0 0 8px #fff2;
+            animation: reveal-ghost 2.2s cubic-bezier(.77,0,.18,1) 0.5s forwards;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #fff 20%, #fff 80%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, #fff 20%, #fff 80%, transparent 100%);
+            -webkit-mask-size: 200% 100%;
+            mask-size: 200% 100%;
+            -webkit-mask-position: 0% 0%;
+            mask-position: 0% 0%;
+        }
+    </style>
+</head>
+<body>
+    <div class="glitch-bg"></div>
+    <canvas id="fondo"></canvas>
+    <audio id="musica" preload="auto">
+        <source src="slipk.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    <div id="playMsg">
+        <span class="open-text">𝖔𝖕𝖊𝖓</span>
+    </div>
+    <div class="perfil">
+        <h1 class="corner-title">DaniBanmode</h1>
+        <xatframe-avatar user="123456789"></xatframe-avatar>
+    </div>
+    <div class="center-message">
+        <span class="open-text">Time is the most valuable thing a person can spend </span>
+    </div>
+    <script>
+        // --- Variables globales ---
+        const canvas = document.getElementById('fondo');
+        const ctx = canvas.getContext('2d');
+        const audio = document.getElementById('musica');
+        const playMsg = document.getElementById('playMsg');
+        
+        let w = window.innerWidth;
+        let h = window.innerHeight;
+        let audioCtx, source, analyser, dataArray;
+        let isAudioActive = false;
+        
+        canvas.width = w;
+        canvas.height = h;
+
+        window.addEventListener('resize', () => {
+            w = window.innerWidth;
+            h = window.innerHeight;
+            canvas.width = w;
+            canvas.height = h;
+        });
+
+        // --- Configuración del audio ---
+        function setupAudio() {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                source = audioCtx.createMediaElementSource(audio);
+                analyser = audioCtx.createAnalyser();
+                
+                source.connect(analyser);
+                analyser.connect(audioCtx.destination);
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+                
+                return true;
+            } catch (error) {
+                console.error('Error al configurar audio:', error);
+                return false;
+            }
+        }
+
+        // --- Partículas ---
+        const particles = [];
+        for (let i = 0; i < 90; i++) {
+            particles.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 3 + 1,
+                dx: (Math.random() - 0.5) * 0.84, // 20% más rápido (0.7 * 1.2)
+                dy: (Math.random() - 0.5) * 0.84, // 20% más rápido (0.7 * 1.2)
+                color: `rgba(255,255,255,${Math.random() * 0.7 + 0.3})`,
+                originalR: Math.random() * 3 + 1 // Guardamos el tamaño original
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            
+            let energy = 0;
+            if (isAudioActive && analyser) {
+                analyser.getByteFrequencyData(dataArray);
+                // Calcula la energía (volumen) promedio
+                energy = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
+            }
+
+            for (let p of particles) {
+                // Haz que las partículas se muevan más rápido según la energía
+                const speedMultiplier = isAudioActive ? (1 + energy / 80) : 1; // Más sensible a la música
+                p.x += p.dx * speedMultiplier;
+                p.y += p.dy * speedMultiplier;
+
+                // Tamaño de partícula que cambia dramáticamente con la música
+                let particleSize;
+                if (isAudioActive && energy > 0) {
+                    // Efecto más dramático: las partículas pueden crecer hasta 3x su tamaño original
+                    const growthFactor = 1 + (energy / 40) * 2; // Más agresivo
+                    particleSize = p.originalR * growthFactor;
+                } else {
+                    particleSize = p.originalR;
+                }
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, particleSize, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+
+                // Rebote en los bordes
+                if (p.x + particleSize > w || p.x - particleSize < 0) p.dx *= -1;
+                if (p.y + particleSize > h || p.y - particleSize < 0) p.dy *= -1;
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // --- Eventos de audio ---
+        // Función simple para activar la música
+        function activateMusic() {
+            console.log('¡CLIC DETECTADO! Activando música...');
+            
+            // Configurar audio si no está configurado
+            if (!audioCtx) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    source = audioCtx.createMediaElementSource(audio);
+                    source.connect(audioCtx.destination);
+                } catch (error) {
+                    console.error('Error configurando audio:', error);
+                }
+            }
+            
+            // Intentar reproducir
+            audio.play().then(() => {
+                console.log('¡Música activada!');
+                isAudioActive = true;
+                playMsg.style.opacity = 0;
+                setTimeout(() => {
+                    playMsg.style.display = 'none';
+                }, 800);
+            }).catch((error) => {
+                console.error('Error reproduciendo audio:', error);
+                alert('Error al reproducir audio: ' + error.message);
+            });
+        }
+        
+        // Agregar evento de clic
+        playMsg.addEventListener('click', activateMusic);
+        
+        // Debugging adicional
+        playMsg.addEventListener('mousedown', () => {
+            console.log('MOUSE DOWN en playMsg');
+        });
+        
+        playMsg.addEventListener('mouseup', () => {
+            console.log('MOUSE UP en playMsg');
+        });
+        
+        // Verificar que el elemento es clickeable
+        console.log('playMsg.style.cursor:', playMsg.style.cursor);
+        console.log('playMsg.style.pointerEvents:', playMsg.style.pointerEvents);
+        console.log('playMsg.style.zIndex:', playMsg.style.zIndex);
+        
+        // También agregar evento al texto "open" por si acaso
+        const openTextElement = document.querySelector('.open-text');
+        if (openTextElement) {
+            openTextElement.addEventListener('click', activateMusic);
+            openTextElement.addEventListener('mousedown', () => {
+                console.log('MOUSE DOWN en openText');
+            });
+        }
+        
+        console.log('Eventos de clic configurados');
+        console.log('playMsg:', playMsg);
+        console.log('openTextElement:', openTextElement);
+
+        // Eventos del elemento de audio
+        audio.addEventListener('loadstart', () => console.log('Audio: Iniciando carga'));
+        audio.addEventListener('canplay', () => console.log('Audio: Listo para reproducir'));
+        audio.addEventListener('canplaythrough', () => console.log('Audio: Completamente cargado'));
+        audio.addEventListener('loadeddata', () => console.log('Audio: Datos cargados'));
+        audio.addEventListener('error', (e) => {
+            console.error('Error de audio:', e);
+            console.error('Error code:', audio.error ? audio.error.code : 'No error code');
+            console.error('Error message:', audio.error ? audio.error.message : 'No error message');
+            alert('Error al cargar el archivo de audio. Verifica que el archivo MP3 esté en la carpeta correcta.');
+        });
+
+        // Iniciar animación
+        animate();
+
+        // --- Efecto de iluminación interactivo en 'open' ---
+        const openText = document.querySelector('.open-text');
+        if (openText) {
+            openText.addEventListener('mousemove', (e) => {
+                const rect = openText.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                openText.style.setProperty('--glow-x', `${(x * 100).toFixed(1)}%`);
+                openText.style.setProperty('--glow-strength', '1.2');
+            });
+            openText.addEventListener('mouseleave', () => {
+                openText.style.setProperty('--glow-strength', '0.0');
+            });
+        }
+    </script>
+</body>
+</html>
