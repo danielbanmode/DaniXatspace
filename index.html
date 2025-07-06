@@ -392,14 +392,15 @@
         // --- Partículas ---
         const particles = [];
         for (let i = 0; i < 90; i++) {
+            const baseSize = Math.random() * 4 + 2; // antes era 3 + 1, ahora 4 + 2 (más grandes)
             particles.push({
                 x: Math.random() * w,
                 y: Math.random() * h,
-                r: Math.random() * 3 + 1,
-                dx: (Math.random() - 0.5) * 0.84, // 20% más rápido (0.7 * 1.2)
-                dy: (Math.random() - 0.5) * 0.84, // 20% más rápido (0.7 * 1.2)
+                r: baseSize,
+                dx: (Math.random() - 0.5) * 0.84,
+                dy: (Math.random() - 0.5) * 0.84,
                 color: `rgba(255,255,255,${Math.random() * 0.7 + 0.3})`,
-                originalR: Math.random() * 3 + 1 // Guardamos el tamaño original
+                originalR: baseSize
             });
         }
 
@@ -422,8 +423,8 @@
                 // Tamaño de partícula que cambia dramáticamente con la música
                 let particleSize;
                 if (isAudioActive && energy > 0) {
-                    // Efecto más dramático: las partículas pueden crecer hasta 3x su tamaño original
-                    const growthFactor = 1 + (energy / 40) * 2; // Más agresivo
+                    // ¡Haz que crezcan hasta 6x su tamaño original!
+                    const growthFactor = 1 + (energy / 30) * 5; // antes era /40 * 2, ahora /30 * 5 (más sensible y más grande)
                     particleSize = p.originalR * growthFactor;
                 } else {
                     particleSize = p.originalR;
